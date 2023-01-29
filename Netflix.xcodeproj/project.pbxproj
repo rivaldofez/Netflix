@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7E09F18A2986A2F000C00CA2 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E09F1892986A2F000C00CA2 /* APICaller.swift */; };
 		7E09F18C2986B9E400C00CA2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E09F18B2986B9E400C00CA2 /* Movie.swift */; };
+		7E09F18E2986C14F00C00CA2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E09F18D2986C14F00C00CA2 /* Extensions.swift */; };
 		7E7F6F5729864C170037F881 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F6F5629864C170037F881 /* AppDelegate.swift */; };
 		7E7F6F5929864C170037F881 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F6F5829864C170037F881 /* SceneDelegate.swift */; };
 		7E7F6F5B29864C170037F881 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F6F5A29864C170037F881 /* MainTabBarViewController.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		7E09F1892986A2F000C00CA2 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		7E09F18B2986B9E400C00CA2 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		7E09F18D2986C14F00C00CA2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7E7F6F5329864C170037F881 /* Netflix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Netflix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E7F6F5629864C170037F881 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E7F6F5829864C170037F881 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		7E7F6F76298676B80037F881 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7E09F18D2986C14F00C00CA2 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				7E7F6F7B298681760037F881 /* HeroHeaderUIView.swift in Sources */,
 				7E7F6F5729864C170037F881 /* AppDelegate.swift in Sources */,
 				7E7F6F72298664B60037F881 /* DownloadViewController.swift in Sources */,
+				7E09F18E2986C14F00C00CA2 /* Extensions.swift in Sources */,
 				7E7F6F5929864C170037F881 /* SceneDelegate.swift in Sources */,
 				7E7F6F6E2986647B0037F881 /* UpcomingViewController.swift in Sources */,
 				7E09F18C2986B9E400C00CA2 /* Movie.swift in Sources */,
