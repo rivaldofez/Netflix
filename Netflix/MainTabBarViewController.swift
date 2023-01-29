@@ -12,7 +12,7 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .red
+        view.backgroundColor = .systemBackground
         
         let homeVC = UINavigationController(rootViewController: HomeViewController())
         
@@ -32,6 +32,7 @@ class MainTabBarViewController: UITabBarController {
         searchVC.title = "Top Search"
         downloadVC.title = "Downloads"
         
+        tabBar.tintColor = .label
         
         setViewControllers([homeVC, upcomingVC, searchVC, downloadVC], animated: true)
     }
