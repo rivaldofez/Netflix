@@ -27,6 +27,11 @@ class MainTabBarViewController: UITabBarController {
         searchVC.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         downloadVC.tabBarItem.image = UIImage(systemName: "arrow.down.to.line")
         
+        homeVC.title = "Home"
+        upcomingVC.title = "Coming Soon"
+        searchVC.title = "Top Search"
+        downloadVC.title = "Downloads"
+        
         
         setViewControllers([homeVC, upcomingVC, searchVC, downloadVC], animated: true)
     }
