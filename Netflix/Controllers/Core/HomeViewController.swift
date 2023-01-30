@@ -46,13 +46,21 @@ class HomeViewController: UIViewController {
         
         homeFeedTable.tableHeaderView = headerView
         
+        configureHeroHeaderView()
+        
     }
     
     private func configureHeroHeaderView(){
         APICaller.shared.getPopularMovies {[weak self] result in
             switch result {
             case .success(let films):
-                self?.randomTrendingMovie = films.randomElement()
+                let selectedFilm = films.randomElement()
+                
+                self?.randomTrendingMovie = selectedFilm
+                
+                
+                
+                self?.headerView?.configure(with: FilmViewModel(filmName: selectedFilm?.original_name ?? selectedFilm?.original_title ?? "", posterURL: selectedFilm?.poster_path ?? ""))
             case .failure(let error):
                 print(error.localizedDescription)
             }
