@@ -15,6 +15,7 @@ class FilmTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -36,8 +37,9 @@ class FilmTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(filmPosterImageView)
-        contentView.addSubview(filmLabel)
         contentView.addSubview(playFilmButton)
+        contentView.addSubview(filmLabel)
+
         
         applyConstraint()
     }
@@ -45,13 +47,14 @@ class FilmTableViewCell: UITableViewCell {
     private func applyConstraint(){
         let filmPosterImageViewConstraints = [
             filmPosterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            filmPosterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
-            filmPosterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            filmPosterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            filmPosterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             filmPosterImageView.widthAnchor.constraint(equalToConstant: 100)
         ]
         
         let filmLabelConstraints = [
             filmLabel.leadingAnchor.constraint(equalTo: filmPosterImageView.trailingAnchor, constant: 20),
+//            filmLabel.trailingAnchor.constraint(equalTo: playFilmButton.leadingAnchor, constant: -10),
             filmLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ]
         
