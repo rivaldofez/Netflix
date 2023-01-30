@@ -65,5 +65,23 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        
+        let film = films[indexPath.row]
+        guard let filmName = film.original_name ?? film.original_title else { return }
+        
+        
+        APICaller.shared.getMovie(with: filmName + " trailer") { result in
+            switch result{
+            case .success(let videoItem):
+                print(videoItem.id)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
 }
