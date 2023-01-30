@@ -43,6 +43,8 @@ class HomeViewController: UIViewController {
         
         //        getTrendingMovies()
         //        fetchData()
+        
+        APICaller.shared.getMovie(with: "Harry Potter")
     }
     
     override func viewDidLayoutSubviews() {
