@@ -8,7 +8,9 @@
 import UIKit
 
 class UpcomingViewController: UIViewController {
-
+    
+    private var films : [Film] = [Film]()
+    
     private let upcomingTable : UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -17,7 +19,7 @@ class UpcomingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
@@ -27,23 +29,39 @@ class UpcomingViewController: UIViewController {
         upcomingTable.delegate = self
         upcomingTable.dataSource = self
         
+        fetchUpcoming()
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         upcomingTable.frame = view.bounds
     }
+    
+    private func fetchUpcoming(){
+        APICaller.shared.getUpcomingMovies { [weak self] result in
+            switch result {
+            case .success(let films):
+                self?.films = films
+                DispatchQueue.main.async {
+                    self?.upcomingTable.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return films.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "test"
+        cell.textLabel?.text = films[indexPath.row].original_name ?? films[indexPath.row].original_title ?? "Unknown"
         return cell
     }
 }
