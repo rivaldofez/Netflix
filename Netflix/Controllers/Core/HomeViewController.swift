@@ -41,10 +41,6 @@ class HomeViewController: UIViewController {
         
         homeFeedTable.tableHeaderView = headerView
         
-        //        getTrendingMovies()
-        //        fetchData()
-        
-        navigationController?.pushViewController(FilmPreviewViewController(), animated: true)
     }
     
     override func viewDidLayoutSubviews() {

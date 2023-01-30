@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol CollectionViewTableViewCellDelegate: AnyObject {
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: FilmPreviewViewModel)
+}
+
+
 class CollectionViewTableViewCell: UITableViewCell {
 
     static let identifier = "CollectionViewTableViewCell"
     private var films: [Film] = [Film]()
+    
+    weak var delegate: CollectionViewTableViewCellDelegate?
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -73,15 +80,28 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
         guard let filmName = film.original_name ?? film.original_title else { return }
         
         
-        APICaller.shared.getMovie(with: filmName + " trailer") { result in
+        APICaller.shared.getMovie(with: filmName + " trailer") { [weak self] result in
             switch result{
             case .success(let videoItem):
-                print(videoItem.id)
+                let film = self?.films[indexPath.row]
+                guard let filmOverview = film?.overview else { return }
+                let viewModel = FilmPreviewViewModel(title: filmName, youtubeVideo: videoItem, filmOverview: filmOverview)
+                
+                guard let strongSelf = self else { return }
+                
+                self?.delegate?.collectionViewTableViewCellDidTapCell(strongSelf, viewModel: viewModel)
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
-    
-    
+}
+
+extension HomeViewController: CollectionViewTableViewCellDelegate {
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: FilmPreviewViewModel) {
+        let vc = FilmPreviewViewController()
+        vc.delegate = self
+        vc.configure(with: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
