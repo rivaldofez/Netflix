@@ -42,6 +42,7 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .label
         
         fetchDiscoverMovies()
+        searchController.searchResultsUpdater = self
     }
     
     private func fetchDiscoverMovies(){
@@ -83,5 +84,28 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        guard let query = searchBar.text,
+                !query.trimmingCharacters(in: .whitespaces)
+            .isEmpty,
+              query.trimmingCharacters(in: .whitespaces).count >= 3,
+              let resultController = searchController.searchResultsController as? SearchResultViewController else { return }
+        
+        APICaller.shared.search(with: query) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let films):
+                    resultController.films = films
+                    resultController.searchResultCollectionView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
