@@ -120,6 +120,8 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else { return UITableViewCell() }
         
+        cell.delegate = self
+        
         switch indexPath.section {
         case Sections.TrendingMovie.rawValue:
             APICaller.shared.getTrendingMovies { result in
@@ -171,5 +173,15 @@ extension HomeViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension HomeViewController: CollectionViewTableViewCellDelegate {
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: FilmPreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = FilmPreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

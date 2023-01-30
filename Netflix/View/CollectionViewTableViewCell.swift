@@ -97,11 +97,4 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
     }
 }
 
-extension HomeViewController: CollectionViewTableViewCellDelegate {
-    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: FilmPreviewViewModel) {
-        let vc = FilmPreviewViewController()
-        vc.delegate = self
-        vc.configure(with: viewModel)
-        navigationController?.pushViewController(vc, animated: true)
-    }
-}
+
