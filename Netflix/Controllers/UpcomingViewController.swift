@@ -13,7 +13,7 @@ class UpcomingViewController: UIViewController {
     
     private let upcomingTable : UITableView = {
         let table = UITableView()
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(FilmTableViewCell.self, forCellReuseIdentifier: FilmTableViewCell.identifier)
         return table
     }()
     
@@ -60,8 +60,17 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = films[indexPath.row].original_name ?? films[indexPath.row].original_title ?? "Unknown"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FilmTableViewCell.identifier, for: indexPath) as? FilmTableViewCell else { return UITableViewCell()}
+        
+        let film = films[indexPath.row]
+        
+        cell.configure(with: FilmViewModel(filmName: (film.original_name ?? film.original_title) ?? "" , posterURL: film.poster_path ?? ""))
+        
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 140
     }
 }
