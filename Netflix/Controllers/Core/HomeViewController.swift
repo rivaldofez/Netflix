@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
         //        getTrendingMovies()
         //        fetchData()
         
+        navigationController?.pushViewController(FilmPreviewViewController(), animated: true)
     }
     
     override func viewDidLayoutSubviews() {
