@@ -14,6 +14,7 @@ class DataPersistenceManager {
     
     enum DatabaseError: Error {
         case failedToSaveData
+        case failedToFetchData
     }
     
     static let shared = DataPersistenceManager()
@@ -40,6 +41,24 @@ class DataPersistenceManager {
             completion(.success(()))
         } catch {
             completion(.failure(DatabaseError.failedToSaveData))
+        }
+    }
+    
+    
+    func fetchFilmFromDatabase(completion: @escaping (Result<[FilmItem], Error>) -> Void){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<FilmItem>
+        
+        request = FilmItem.fetchRequest()
+        
+        do {
+            let films = try context.fetch(request)
+            completion(.success(films))
+        } catch {
+            completion(DatabaseError.failedToFetchData)
         }
     }
 }
