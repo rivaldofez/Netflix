@@ -31,7 +31,9 @@ class DownloadViewController: UIViewController {
         
         downloadTable.delegate = self
         downloadTable.dataSource = self
-        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("downloaded"), object: nil, queue: nil) { _ in
+            self.fetchLocalFilm()
+        }
         fetchLocalFilm()
     }
     
