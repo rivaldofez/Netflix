@@ -54,8 +54,9 @@ class CollectionViewTableViewCell: UITableViewCell {
         }
     }
     
-    private func downloadTitleAt(indexPath: IndexPath){
-        print("Downloading \(films[indexPath.row].original_title)")
+    private func downloadFilmAt(indexPath: IndexPath){
+//        print("Downloading \(films[indexPath.row].original_title)")
+        
     }
     
 }
@@ -106,7 +107,7 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource {
             previewProvider: nil) { [weak self] _ in
                 let downloadAction = UIAction(title: "Download", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
                     
-                    self?.downloadTitleAt(indexPath: indexPath)
+                    self?.downloadFilmAt(indexPath: indexPath)
                     
                 }
                 
