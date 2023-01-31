@@ -17,10 +17,10 @@ class DownloadViewController: UIViewController {
         return table
     }()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
@@ -75,5 +75,26 @@ extension DownloadViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            
+            DataPersistenceManager.shared.deleteFilm(model: films[indexPath.row]) { [weak self] result in
+                switch(result){
+                case .success():
+                    print("Delete success")
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                self?.films.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+               
+            }
+        default:
+            break
+        }
     }
 }
