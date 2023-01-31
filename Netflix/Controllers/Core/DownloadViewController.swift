@@ -26,12 +26,33 @@ class DownloadViewController: UIViewController {
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         title = "Download"
         
+        view.addSubview(downloadTable)
+        
         
         downloadTable.delegate = self
         downloadTable.dataSource = self
+        
+        fetchLocalFilm()
     }
-
-
+    
+    private func fetchLocalFilm(){
+        DataPersistenceManager.shared.fetchFilmFromDatabase { [weak self] result in
+            switch result{
+            case .success(let films):
+                self?.films = films
+                DispatchQueue.main.async {
+                    self?.downloadTable.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        downloadTable.frame = view.bounds
+    }
 }
 
 

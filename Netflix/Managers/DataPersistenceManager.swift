@@ -58,7 +58,7 @@ class DataPersistenceManager {
             let films = try context.fetch(request)
             completion(.success(films))
         } catch {
-            completion(DatabaseError.failedToFetchData)
+            completion(.failure(DatabaseError.failedToFetchData))
         }
     }
 }
